@@ -33,3 +33,13 @@ var app = angular.module("myApp", ["ngRoute", "angularUtils.directives.dirPagina
 //         }
 //     }
 // });
+
+// app.controller('RepeatController', function RepeatController($scope) {
+//     $scope.pageSize = 5;
+//     $scope.currentPage = 1;
+
+//     alert($scope.currentPage);
+
+//     $scope.number = ($scope.$index + 1) + ($scope.currentPage - 1) * $scope.pageSize;
+
+// });

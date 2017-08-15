@@ -1,9 +1,10 @@
-app.controller('addCtrl', function($http, $location, $scope, $timeout) {
+app.controller('addCtrl', function($rootScope, $http, $location, $scope, $timeout) {
     $scope.success = false;
     $scope.typeOptions = [
-        { name: 'Unavailable', value: 'u' },
-        { name: 'Available', value: 'a' },
+        { name: 'Unavailable', value: 'unavail' },
+        { name: 'Available', value: 'avail' },
     ];
+    $rootScope.adminName = "added by sakib";
 
     $scope.game = { availability: $scope.typeOptions[0].value };
 
@@ -12,14 +13,20 @@ app.controller('addCtrl', function($http, $location, $scope, $timeout) {
     $scope.addGame = function() {
 
         var data = JSON.stringify($scope.game);
-        console.log(data);
+        //console.log(data);
 
         $http.post(api, data).then(function(response) {
-            console.log(response);
-            alert("Added Successfully");
+            //console.log(response.data);
+            //alert("Added Successfully");
             $scope.success = true;
-            refresh();
+            $rootScope.getAll();
+            $timeout(_reset, 2000);
         });
+    };
+
+    $scope.refresh = function(){
+        $rootScope.getAll();
+        location.reload();
     }
 
     $scope.add = function(number, game) {
@@ -44,13 +51,16 @@ app.controller('addCtrl', function($http, $location, $scope, $timeout) {
         }
         $scope.game = game;
         $scope.game.rating = rating;
-    }
+    };
 
-
-    var refresh = function() {
-        $http.get(api).then(function(response) {
-            //console.log(response.data);
-            $scope.games = response.data;
-        });
-    }
+    var _reset = function() {
+        $scope.game.name = '';
+        $scope.game.owner = '';
+        $scope.game.description = '';
+        $scope.game.rating = '';
+        $scope.game.platform = '';
+        $scope.game.image_url = '';
+        $scope.game = { availability: $scope.typeOptions[0].value };
+        $scope.success = false;
+    };
 });

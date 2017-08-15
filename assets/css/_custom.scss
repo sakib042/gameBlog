@@ -151,3 +151,19 @@ span.rating {
     float: right;
     margin-bottom: 5px;
 }
+
+@media (max-width: 767px) {
+    .hidden-in-mobile {
+        display: none;
+    }
+
+    .listButton{
+        padding: 2px;
+    }
+    .listButton .fa{
+        font-size: 15px;
+    }
+    .rating .fa{
+        font-size: 10px;
+    }
+}

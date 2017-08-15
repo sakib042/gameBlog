@@ -3,50 +3,58 @@
         <div class="col-xs-12 col-sm-12">
             <form name="searchForm" class="form-inline">
                 <div class="form-group col-xs-12 col-sm-6">
-                    <select class="form-control" ng-model="availability">
-                    <option value=''>Select Availability</option>
-                    <option ng-value="'a'">Available</option>
-                    <option ng-value="'u'">Unavailable</option>
-                </select>
-                    <input class="form-control" type="text" ng-model="query" placeholder="Search by Name" required>
-                    <button type="submit" class="btn btn-success" ng-disabled="searchForm.$invalid">Search</button>
+                    <select class="form-control" ng-model="availability" style="margin-bottom:5px;">
+                        <option value="">All</option>
+                        <option ng-value="'avail'">Available</option>
+                        <option ng-value="'unavail'">Unavailable</option>
+                    </select>
+                    <input class="form-control" type="text" ng-model="query" placeholder="Search by Name" required style="margin-bottom:5px;" />
+                    <button ng-hide="query==null || query==''" ng-click="doReset()" type="button" class="btn btn-danger"><i class="fa fa-times"></i></button>
+                    <!-- <button type="submit" class="btn btn-success" ng-disabled="searchForm.$invalid">Search</button> -->
                 </div>
                 <div class="form-group col-xs-12 col-sm-6">
                     <dir-pagination-controls></dir-pagination-controls>
                 </div>
             </form>
 
-
-            <table class="table table-responsive table-stripped">
-                <tr dir-paginate="(key, game) in games | itemsPerPage:5">
-                    <td><img height="65px" width="65px" class="img img-circle" src="{{game.image_url}}" alt="image " /></td>
+            <table class="table table-responsive table-stripped" ng-show="games.length<=0">
+                <tr>
                     <td>
-                        <h4 style="margin: 15px 0 2px 0">{{game.name}}</h4>
-                        <p style="color:gray">by admin</p>
-                    </td>
-                    <td>
-                        <h4><span class="platform">{{game.platform}}</span></h4>
-                        <span class="rating">
-                        <i class="{{game.rating>=1?'addYellow':''}} fa fa-star"></i>&nbsp;
-                        <i class="{{game.rating>=2?'addYellow':''}} fa fa-star"></i>&nbsp;
-                        <i class="{{game.rating>=3?'addYellow':''}} fa fa-star"></i>&nbsp;
-                        <i class="{{game.rating>=4?'addYellow':''}} fa fa-star"></i>&nbsp;
-                        <i class="{{game.rating==5?'addYellow':''}}  fa fa-star"></i>
-                    </span>
-                    </td>
-                    <td>
-                        <br/>
-                        <div class="availability-layer ">
-                            <div class="availability ">{{game.availability}}</div>
-                        </div>
-                    </td>
-                    <td><br/>
-                        <button data-toggle="modal" data-target="#detailGame" type="button" class="btn btn-primary" ng-click="detail(key)">Detail</button>
-                        <button type="button" class="btn btn-danger" ng-click="delete(key)">Delete</button>
+                        <h1 class="text-center"><br/>{{listMessage==null?'Loading......':listMessage}}</h1>
                     </td>
                 </tr>
             </table>
 
+            <table class="table table-responsive table-stripped" ng-hide="games.length<=0">
+                <tr dir-paginate="game in games | filter: availability | filter: query | itemsPerPage: itemsPerPage" current-page="currentPage">
+                    <td class="hidden-in-mobile"><img height="65px" width="65px" class="img img-circle" src="{{game.image_url}}" alt="image" /></td>
+                    <td>
+                        <h4 style="margin: 15px 0 2px 0">{{game.name}}</h4>
+                        <p style="color:gray">- by admin</p>
+                    </td>
+                    <td>
+                        <h4><span class="platform">{{game.platform}}</span></h4>
+                        <span class="rating">
+                            <i class="{{game.rating>=1?'addYellow':''}} fa fa-star"></i>&nbsp;
+                            <i class="{{game.rating>=2?'addYellow':''}} fa fa-star"></i>&nbsp;
+                            <i class="{{game.rating>=3?'addYellow':''}} fa fa-star"></i>&nbsp;
+                            <i class="{{game.rating>=4?'addYellow':''}} fa fa-star"></i>&nbsp;
+                            <i class="{{game.rating==5?'addYellow':''}}  fa fa-star"></i>
+                        </span>
+                    </td>
+                    <td>
+                        <br/>
+                        <div class="availability-layer ">
+                            <div class="availability ">{{game.availability=='avail'?'A':'U'}}</div>
+                        </div>
+                    </td>
+                    <td><br/>
+                        <button ng-disabled="query!=null || (availability!='' && availability!=null)" type="button" class="btn btn-primary listButton" ng-click="detail(($index + 1) + (currentPage - 1) * itemsPerPage)" data-toggle="modal" data-target="#detailGame" ><i class="fa fa-eye"></i></button>
+                        <button ng-hide="deleteConfirmation != ($index + 1) + (currentPage - 1) * itemsPerPage" ng-disabled="query!=null || (availability!='' && availability!=null)" type="button" class="btn btn-danger listButton" ng-click="delete(($index + 1) + (currentPage - 1) * itemsPerPage)">{{deleting==null?'Confirm':deleting}}</button>
+                        <button ng-disabled="query!=null || (availability!='' && availability!=null)" type="button" class="btn btn-danger listButton" ng-click="confirmDelete(($index + 1) + (currentPage - 1) * itemsPerPage)"><i class="fa fa-times"></i></button>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 
@@ -62,10 +70,10 @@
                 </div>
                 <div class="modal-body ">
                     <div class="row detail ">
-                        <div class="col-xs-12 col-sm-4 ">
-                            <img width="200px" height="200px" src="{{oneGame.image_url}} " alt=" ">
+                        <div class="col-xs-12 col-sm-4 col-md-4 text-center" style="margin-bottom:10px;">
+                            <img class="img img-responsive img-thumbnail" src="{{oneGame.image_url}}" alt="image">
                         </div>
-                        <div class="col-xs-12 col-sm-7 ">
+                        <div class="col-xs-12 col-sm-6 col-md-7 ">
                             <h2 style="margin-top:0">{{oneGame.name}}</h2>
                             <p class="text-justify">{{oneGame.description}}</p>
                         </div>
