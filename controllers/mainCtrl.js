@@ -29,13 +29,13 @@ app.controller('mainCtrl', function($rootScope, $scope, $http, $location, $timeo
             $scope.games = arr;
 
             $scope.parsedData = parsedData;
-        }, function(reason){
+        }, function(reason) {
             $scope.listMessage = reason.statusText;
         });
     };
 
     $scope.doReset = function() {
-        $scope.query = '';
+        $scope.query = undefined;
     };
 
     // var getKey = function(data) {
@@ -48,32 +48,33 @@ app.controller('mainCtrl', function($rootScope, $scope, $http, $location, $timeo
     $rootScope.getAll();
 
     $scope.deleteConfirmation = 0;
-    $scope.confirmDelete = function(id){
+    $scope.confirmDelete = function(id) {
         //alert(id);
-        if($scope.deleteConfirmation == 0){
+        if ($scope.deleteConfirmation == 0) {
             $scope.deleteConfirmation = id;
-        }else{
+        } else {
             $scope.deleteConfirmation = 0;
         }
     }
 
     $scope.delete = function(id) {
-        var key = $scope.keyArray[id - 1];
+        var id = id-1;
+        var key = $scope.keyArray[id];
         //alert($scope.keyArray[id]);
 
         var api2 = "https://web-developer-exam.firebaseio.com/sakib-Kr57W_b-YVvc52AJdps/" + key + ".json";
         $http.delete(api2).then(function(response) {
             //console.log(response.status);
-            $timeout(load, 1000);
+            $timeout(reload, 1000);
             $scope.deleting = "Deleting..";
         });
     };
 
-    var load = function(){
-
+    var reload = function() {
         $scope.deleteConfirmation = 0;
         $scope.deleting = null;
         $rootScope.getAll();
+        location.reload();
     }
 
     $scope.detail = function(id) {
