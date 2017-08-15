@@ -1,0 +1,117 @@
+@font-face {
+  font-family: seliseFont1;
+  src: url(../fonts/DroidSans.ttf); }
+@font-face {
+  font-family: seliseFont2;
+  src: url(../fonts/DroidSansBold.ttf); }
+body {
+  background-color: #1d1d1d;
+  font-family: seliseFont1, seliseFont2; }
+
+.container {
+  box-shadow: 0 2px 3px #000000; }
+
+/*----------Header---------*/
+.header .first,
+.header .middle,
+.header .last {
+  padding: 15px 0; }
+
+.header .first {
+  padding: 25px 0 0 20px; }
+
+.header .last {
+  padding: 30px 20px 0 0; }
+
+.header h4 {
+  color: #ffffff; }
+
+.header h4 i {
+  color: red; }
+
+.header img.logo {
+  margin: 0 auto;
+  text-align: center;
+  vertical-align: middle;
+  max-width: 70%;
+  max-height: 70%; }
+
+.has-error {
+  border-color: red;
+  box-shadow: 0 0 2px red; }
+
+/*------------Slider-------------*/
+.carousel-inner .item .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: #202020;
+  opacity: .5; }
+
+.carousel-inner .item .overlay2 {
+  position: absolute;
+  top: 10%;
+  left: 12%;
+  width: 35%;
+  height: 100%;
+  color: #ffffff;
+  text-align: justify; }
+
+.modal-content {
+  background-color: #5DA93C; }
+
+/*---------- Search Section -----------*/
+.search-section {
+  padding: 15px; }
+
+/*-------list view -----------------*/
+.table {
+  color: #ffffff; }
+
+.platform {
+  padding: 2px 5px;
+  background-color: #5DA93C;
+  color: #ffffff; }
+
+span.rating {
+  padding: 5px 0; }
+
+.availability-layer {
+  padding: 3px 5px;
+  background-color: #5DA93C;
+  color: #ffffff;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  transform: rotate(45deg);
+  height: 25px;
+  width: 25px; }
+
+.availability {
+  padding: 0 3px;
+  color: #ffffff;
+  text-transform: uppercase;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  transform: rotate(-45deg); }
+
+.detail {
+  color: #ffffff;
+  padding: 30px 0; }
+
+.fa-star {
+  color: white;
+  transition: .3; }
+
+.add-rating .fa-star:hover,
+.addYellow {
+  color: yellow;
+  transition: .3; }
+
+.pagination {
+  margin: 0;
+  float: right;
+  margin-bottom: 5px; }
+
+/*# sourceMappingURL=style.css.map */

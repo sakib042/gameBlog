@@ -1,0 +1,93 @@
+<div ng-controller="addCtrl">
+    <div class="row header">
+        <div class="col-xs-4 col-sm-4 first">
+            <button type="button" data-toggle="modal" data-target="#addGame" class="btn btn-success btn-lg">ADD GAME</button>
+        </div>
+        <div class="col-xs-4 col-sm-4 middle">
+            <img src="assets/img/logo.png" alt="logo" class="logo img img-responsive">
+        </div>
+        <div class="col-xs-4 col-sm-4 text-right last">
+            <h4><strong><i class="fa fa-user-circle fa-lg"></i>&nbsp;&nbsp;PROFILE</h4>
+    </div>
+</div>
+
+<!-- Modal -->
+    <div id="addGame" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="row">
+                            <div class="col-xs-4 col-sm-5 text-left">
+                                <h3 class="modal-title">ADD GAME</h3>
+                            </div>
+                            <div class="col-xs-8 col-sm-7 text-right"><button ng-disabled="game.name==null || game.owner==null || game.platform==null" ng-click="addGame(game)" type="submit" class="btn btn-default" ><i class="fa fa-save fa-lg"></i>&nbsp;</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times fa-lg"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" ng-show="success==true">
+                            <div class="col-xs-12 col-sm-12">
+                                <p><code>Added Successfully</code></p>
+                            </div>
+                        </div>
+                        <div class="row" ng-show="success==false">
+                            <form>
+                                <div class="col-xs-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="name">Name</label>
+                                        <input class="form-control {{game.name==null?'has-error':''}}" type="text" name="name" ng-model="game.name" required="required" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="owner">Owner</label>
+                                        <input class="form-control {{game.owner==null?'has-error':''}}" type="text" name="owner" ng-model="game.owner" required="required" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">Description</label>
+                                        <textarea name="description" class="form-control" ng-model="game.description" rows="5" style="resize:none"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="rating">Rating</label>
+                                        <input name="rating" type="hidden" ng-model="game.rating" />
+                                        <p class="add-rating">
+                                            <i ng-click="add(1, game)" class="{{game.rating>='1'?'addYellow':''}} fa fa-star fa-lg"></i>&nbsp;
+                                            <i ng-click="add(2, game)" class="{{game.rating>='2'?'addYellow':''}} fa fa-star fa-lg"></i>&nbsp;
+                                            <i ng-click="add(3, game)" class="{{game.rating>='3'?'addYellow':''}} fa fa-star fa-lg"></i>&nbsp;
+                                            <i ng-click="add(4, game)" class="{{game.rating>='4'?'addYellow':''}} fa fa-star fa-lg"></i>&nbsp;
+                                            <i ng-click="add(5, game)" class="{{game.rating>='5'?'addYellow':''}} fa fa-star fa-lg"></i>
+                                        </p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="platform">Platform</label>
+                                        <select name="platform" class="form-control {{game.platform==null?'has-error':''}}" ng-model="game.platform" required="required">
+                                            <option value="">Select Platform</option>
+                                            <option ng-value="'xbox'">Xbox</option>
+                                            <option ng-value="'ios'">IOS</option>
+                                            <option ng-value="'playstation'">Play Station</option>
+                                            <option ng-value="'android'">Android</option>
+                                            <option ng-value="'windows'">Windows</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="availability">Availability</label>
+                                        <select name="availability" class="form-control" ng-model="game.availability" ng-options='option.value as option.name for option in typeOptions'></select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="image_url">Image URL</label>
+                                        <input class="form-control" type="text" name="image_url" ng-model="game.image_url" required="required" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                
+                <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div> -->
+            </div>
+        </div>
+    </div>
+</div>

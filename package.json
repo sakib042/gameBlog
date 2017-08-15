@@ -1,0 +1,19 @@
+{
+  "name": "angular",
+  "version": "1.0.0",
+  "description": "simple angular app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "sakib",
+  "license": "ISC",
+  "dependencies": {
+    "angular-utils-pagination": "^0.11.1",
+    "angularjs": "0.0.1",
+    "bootstrap": "^3.3.7",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.2.1",
+    "wowjs": "^1.1.3"
+  }
+}

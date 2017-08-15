@@ -1,0 +1,81 @@
+<div ng-controller="mainCtrl">
+    <div class="row search-section">
+        <div class="col-xs-12 col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="form-group col-xs-12 col-sm-6">
+                    <select class="form-control" ng-model="availability">
+                    <option value=''>Select Availability</option>
+                    <option ng-value="'a'">Available</option>
+                    <option ng-value="'u'">Unavailable</option>
+                </select>
+                    <input class="form-control" type="text" ng-model="query" placeholder="Search by Name" required>
+                    <button type="submit" class="btn btn-success" ng-disabled="searchForm.$invalid">Search</button>
+                </div>
+                <div class="form-group col-xs-12 col-sm-6">
+                    <dir-pagination-controls></dir-pagination-controls>
+                </div>
+            </form>
+
+
+            <table class="table table-responsive table-stripped">
+                <tr dir-paginate="(key, game) in games | itemsPerPage:5">
+                    <td><img height="65px" width="65px" class="img img-circle" src="{{game.image_url}}" alt="image " /></td>
+                    <td>
+                        <h4 style="margin: 15px 0 2px 0">{{game.name}}</h4>
+                        <p style="color:gray">by admin</p>
+                    </td>
+                    <td>
+                        <h4><span class="platform">{{game.platform}}</span></h4>
+                        <span class="rating">
+                        <i class="{{game.rating>=1?'addYellow':''}} fa fa-star"></i>&nbsp;
+                        <i class="{{game.rating>=2?'addYellow':''}} fa fa-star"></i>&nbsp;
+                        <i class="{{game.rating>=3?'addYellow':''}} fa fa-star"></i>&nbsp;
+                        <i class="{{game.rating>=4?'addYellow':''}} fa fa-star"></i>&nbsp;
+                        <i class="{{game.rating==5?'addYellow':''}}  fa fa-star"></i>
+                    </span>
+                    </td>
+                    <td>
+                        <br/>
+                        <div class="availability-layer ">
+                            <div class="availability ">{{game.availability}}</div>
+                        </div>
+                    </td>
+                    <td><br/>
+                        <button data-toggle="modal" data-target="#detailGame" type="button" class="btn btn-primary" ng-click="detail(key)">Detail</button>
+                        <button type="button" class="btn btn-danger" ng-click="delete(key)">Delete</button>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="detailGame" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times fa-lg"></i></button>
+                    <h4 class="modal-title text-center">Detail View</h4>
+                </div>
+                <div class="modal-body ">
+                    <div class="row detail ">
+                        <div class="col-xs-12 col-sm-4 ">
+                            <img width="200px" height="200px" src="{{oneGame.image_url}} " alt=" ">
+                        </div>
+                        <div class="col-xs-12 col-sm-7 ">
+                            <h2 style="margin-top:0">{{oneGame.name}}</h2>
+                            <p class="text-justify">{{oneGame.description}}</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="modal-footer ">
+                <button type="button " class="btn btn-default " data-dismiss="modal ">Close</button>
+            </div> -->
+            </div>
+
+        </div>
+    </div>
+</div>
